@@ -142,19 +142,6 @@ int findeEndWord(char *src, int start, size_t length)
   return length;
 }
 
-bool cntstr(const char *c1, const char *c2)
-{
-  size_t length = strlen(c1);
-  if (length != strlen(c2))
-    return false;
-  for (size_t i = 0; i < length; i++)
-  {
-    if (c1[i] != c2[i])
-      return false;
-  }
-  return true;
-}
-
 char *substr(char *src, int start, int length)
 {
   char *ret = (char *)malloc(sizeof(char) * (length + 1));
