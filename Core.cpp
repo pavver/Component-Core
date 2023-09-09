@@ -142,6 +142,11 @@ int findeEndWord(char *src, int start, size_t length)
   return length;
 }
 
+bool cmpstr(const char *c1, const char *c2)
+{
+  return strcmp(c1, c2) == 0;
+}
+
 char *substr(char *src, int start, int length)
 {
   char *ret = (char *)malloc(sizeof(char) * (length + 1));

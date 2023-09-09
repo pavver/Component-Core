@@ -13,7 +13,7 @@ bool CharIsDigit(char c);
 
 bool CharIsWord(char c);
 
-bool cntstr(const char *c1, const char *c2);
+bool cmpstr(const char *c1, const char *c2);
 
 char *substr(char *src, int start, int length);
 
