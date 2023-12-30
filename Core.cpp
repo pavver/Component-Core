@@ -40,6 +40,11 @@ bool isEscapeChar(char c)
   return c == '"';
 }
 
+bool isRemoveChar(char c)
+{
+  return c == '\r';
+}
+
 size_t EscapingStringLength(const char *str)
 {
   uint16_t length = strlen(str);
@@ -49,6 +54,8 @@ size_t EscapingStringLength(const char *str)
   {
     if (isEscapeChar(str[i]))
       count++;
+    if (isRemoveChar(str[i]))
+      count--;
   }
   return length + count;
 }
@@ -69,6 +76,9 @@ char *EscapingString(const char *str)
       ret[i + offset] = '\\';
       offset++;
     }
+    if (isRemoveChar(str[i]))
+      continue;
+
     ret[i + offset] = str[i];
   }
 
