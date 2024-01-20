@@ -4,7 +4,8 @@
 
 char *GetUniqueDeviceID(uint16_t initVal = 0);
 
-size_t EscapingStringLength(const char *str);
+char *RemovingString(const char *str);
+
 char *EscapingString(const char *str);
 
 int StringFindeCharIndex(const char *str, char findeChar, int startPos);

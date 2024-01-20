@@ -35,14 +35,53 @@ char *GetUniqueDeviceID(uint16_t initVal)
   return DeviceId;
 }
 
-bool isEscapeChar(char c)
-{
-  return c == '"';
-}
-
 bool isRemoveChar(char c)
 {
   return c == '\r';
+}
+
+size_t RemovingStringLength(const char *str)
+{
+  uint16_t length = strlen(str);
+  uint16_t count = 0;
+
+  for (size_t i = 0; i < length; i++)
+  {
+    if (isRemoveChar(str[i]))
+      count++;
+  }
+  return length - count;
+}
+
+char *RemovingString(const char *str)
+{
+  uint16_t srcLen = strlen(str);
+  uint16_t dstLen = RemovingStringLength(str);
+  char *ret = (char *)malloc(sizeof(char) * (dstLen + 1));
+
+  uint16_t srcIndex = 0;
+  uint16_t dstIndex = 0;
+
+  while (srcIndex < srcLen)
+  {
+    if (isRemoveChar(str[srcIndex]))
+      srcIndex++;
+    else
+    {
+      ret[dstIndex] = str[srcIndex];
+      dstIndex++;
+      srcIndex++;
+    }
+  }
+
+  ret[dstIndex] = '\0';
+
+  return ret;
+}
+
+bool isEscapeChar(char c)
+{
+  return c == '"';
 }
 
 size_t EscapingStringLength(const char *str)
@@ -54,8 +93,6 @@ size_t EscapingStringLength(const char *str)
   {
     if (isEscapeChar(str[i]))
       count++;
-    if (isRemoveChar(str[i]))
-      count--;
   }
   return length + count;
 }
@@ -76,8 +113,6 @@ char *EscapingString(const char *str)
       ret[i + offset] = '\\';
       offset++;
     }
-    if (isRemoveChar(str[i]))
-      continue;
 
     ret[i + offset] = str[i];
   }
